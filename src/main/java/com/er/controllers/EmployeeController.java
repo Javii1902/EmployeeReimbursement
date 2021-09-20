@@ -22,6 +22,9 @@ public class EmployeeController {
 			path("/all",() -> {
 				get(findAllEmployees);
 			});
+			path("/new",() -> {
+				post(saveEmployee);
+			});
 		});
 	}
 

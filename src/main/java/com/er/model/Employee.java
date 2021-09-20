@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 @Entity
 
 @Table(name = "employees")
@@ -20,13 +22,13 @@ public class Employee {
 	@GeneratedValue(generator = "employee_id_seq", strategy = GenerationType.AUTO)
 	@SequenceGenerator(allocationSize = 1, name = "employee_id_seq", sequenceName = "employee_id_seq")
 	private int employee_id;
-	@Column
+	@Column(name="name")
 	private String name;
-	@Column
+	@Column(name="emp_pos")
 	private String emp_pos;
-	@Column
+	@Column(name="username")
 	private String username;
-	@Column 
+	@Column (name="password")
 	private String password;
 	
 	public Employee() {

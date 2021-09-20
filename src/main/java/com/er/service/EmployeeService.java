@@ -13,9 +13,11 @@ public class EmployeeService {
 	}
 	public List<Employee> findAllEmployees(){
 		List<Employee> allEmployees = this.employeeRepository.findAll();
-		return null;
+		
+		return allEmployees;
 	}
 	public List<Employee> findAll(){
+		
 		return this.employeeRepository.findAll();
 	}
 	public void save(Employee employee) {
