@@ -12,20 +12,19 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
-import com.er.model.Employee;
+import com.er.model.Reimbursement;
 import com.er.utils.HibernateSessionFactory;
 
-
-public class EmployeeRepository {
-	public List<Employee> findAll(){
-		List<Employee> employees = new ArrayList<Employee>();
+public class ReimbursementRepository {
+	public List<Reimbursement> findAll(){
+		List<Reimbursement> reimbursement = new ArrayList<Reimbursement>();
 		Session s = null;
 		Transaction tx = null;
 		
 		try {
 			s=  HibernateSessionFactory.getSession();
 			tx = s.beginTransaction();
-			employees = s.createQuery("FROM Employee", Employee.class).getResultList();
+			reimbursement = s.createQuery("FROM Reimbursement", Reimbursement.class).getResultList();
 			tx.commit();
 		}catch(HibernateException e) {
 			tx.rollback();
@@ -33,16 +32,16 @@ public class EmployeeRepository {
 		}finally {
 			s.close();
 		}
-		return employees;
+		return reimbursement;
 	}
 	
-	public void save(Employee employee) {
+	public void save(Reimbursement reimbursement) {
 		Session session = null;
 		Transaction tx = null;
 		try {
 			session = HibernateSessionFactory.getSession();
 			tx = session.beginTransaction();
-			session.save(employee);
+			session.save(reimbursement);
 			tx.commit();
 		}catch (HibernateException e) {
 			tx.rollback();
@@ -51,21 +50,21 @@ public class EmployeeRepository {
 			session.close();
 		}
 	}
-	public Employee findByName(String name) {
+	public Reimbursement findByName(String name) {
 		Session s = null;
 		Transaction tx = null;
-		Employee employee = null;
+		Reimbursement reimbursement= null;
 		
 		try {
 			s = HibernateSessionFactory.getSession();
 			tx = s.beginTransaction();
 			
 			CriteriaBuilder cb = s.getCriteriaBuilder();
-			CriteriaQuery<Employee> cq = cb.createQuery(Employee.class);
-			Root<Employee> root = cq.from(Employee.class);
+			CriteriaQuery<Reimbursement> cq = cb.createQuery(Reimbursement.class);
+			Root<Reimbursement> root = cq.from(Reimbursement.class);
 			cq.select(root).where(cb.equal(root.get("name"), name));
-			Query<Employee> query = s.createQuery(cq);
-			employee = query.getSingleResult();
+			Query<Reimbursement> query = s.createQuery(cq);
+			reimbursement = query.getSingleResult();
 			tx.commit();
 		}catch(HibernateException e) {
 			tx.rollback();
@@ -73,23 +72,23 @@ public class EmployeeRepository {
 		}finally {
 			s.close();
 		}
-		return employee;
+		return reimbursement;
 	}
-	public Employee findByID(int id) {
+	public Reimbursement findByID(int id) {
 		Session s = null;
 		Transaction tx = null;
-		Employee employee = null;
+		Reimbursement reimbursement= null;
 		
 		try {
 			s = HibernateSessionFactory.getSession();
 			tx = s.beginTransaction();
 			
 			CriteriaBuilder cb = s.getCriteriaBuilder();
-			CriteriaQuery<Employee> cq = cb.createQuery(Employee.class);
-			Root<Employee> root = cq.from(Employee.class);
+			CriteriaQuery<Reimbursement> cq = cb.createQuery(Reimbursement.class);
+			Root<Reimbursement> root = cq.from(Reimbursement.class);
 			cq.select(root).where(cb.equal(root.get("employee_id"), id));
-			Query<Employee> query = s.createQuery(cq);
-			employee = query.getSingleResult();
+			Query<Reimbursement> query = s.createQuery(cq);
+			reimbursement = query.getSingleResult();
 			tx.commit();
 		}catch(HibernateException e) {
 			tx.rollback();
@@ -97,6 +96,6 @@ public class EmployeeRepository {
 		}finally {
 			s.close();
 		}		
-		return employee;
+		return reimbursement;
 	}
 }

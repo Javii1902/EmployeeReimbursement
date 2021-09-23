@@ -11,16 +11,16 @@ public class EmployeeService {
 	public EmployeeService() {
 		this.employeeRepository = new EmployeeRepository();
 	}
-	public List<Employee> findAllEmployees(){
-		List<Employee> allEmployees = this.employeeRepository.findAll();
-		
-		return allEmployees;
-	}
 	public List<Employee> findAll(){
-		
 		return this.employeeRepository.findAll();
 	}
 	public void save(Employee employee) {
 		this.employeeRepository.save(employee);
+	}
+	public Employee findByName(String name) {
+		return this.employeeRepository.findByName(name);
+	}
+	public Employee findByID(int id) {
+		return this.employeeRepository.findByID(id);
 	}
 }
