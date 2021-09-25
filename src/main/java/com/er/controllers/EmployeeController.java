@@ -21,6 +21,9 @@ public class EmployeeController {
 	public EmployeeController(Javalin app){
 		this.employeeService = new EmployeeService();
 		app.routes(()-> {
+			path("/login",() -> {
+				post(login);
+			});
 			path("/employee/all",() -> {
 				get(findAllEmployees);
 			});
@@ -36,6 +39,22 @@ public class EmployeeController {
 		});
 	}
 
+	private Handler login = ctx->{
+		
+		int employeeid = Integer.parseInt(ctx.req.getParameter("employeeid"));
+		String password= ctx.req.getParameter("password");
+		Employee employee = this.employeeService.findByID(employeeid);
+
+		if(employee.getEmployee_id() == employeeid && employee.getPassword().equals(password)) {
+			if(employee.getEmp_pos().equals("Employee")) {
+				ctx.req.getSession();
+				ctx.redirect("/employeeHome.html");
+			}else if (employee.getEmp_pos().equals("Manager")) {
+				ctx.req.getSession();
+				ctx.redirect("/ManagerHome.html");
+			}
+		}
+	};
 	private Handler findAllEmployees = ctx -> {
 		//HttpSession session = ctx.req.getSession(false);
 		ctx.json(this.employeeService.findAll());

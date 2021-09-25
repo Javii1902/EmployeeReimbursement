@@ -5,7 +5,7 @@ import java.sql.Connection;
 import javax.servlet.http.HttpSession;
 
 import com.er.controllers.EmployeeController;
-import com.er.controllers.LoginController;
+
 import com.er.controllers.ReimbursementController;
 import com.er.utils.HibernateSessionFactory;
 
@@ -35,6 +35,6 @@ public class Driver {
 		
 		EmployeeController employeeController = new EmployeeController(app);
 		ReimbursementController reimbursementController = new ReimbursementController(app);
-		LoginController loginController = new LoginController(app);
+		
 	}
 }

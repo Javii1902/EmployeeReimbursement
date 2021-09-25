@@ -23,4 +23,7 @@ public class EmployeeService {
 	public Employee findByID(int id) {
 		return this.employeeRepository.findByID(id);
 	}
+	public void login(int employeeid,String password) {
+		this.employeeRepository.login(employeeid, password);
+	}
 }

@@ -15,8 +15,42 @@ import org.hibernate.query.Query;
 import com.er.model.Employee;
 import com.er.utils.HibernateSessionFactory;
 
+import io.javalin.http.Context;
+
 
 public class EmployeeRepository {
+	
+	public Employee login(int employeeID, String password) {
+		System.out.println("in the login repo");
+		//Session s = null;
+		//Transaction tx = null;
+		Employee employee = null;
+		EmployeeRepository empRepo= null;
+		Context ctx= null;
+		
+		try {
+			empRepo = new EmployeeRepository();
+			employee = empRepo.findByID(employeeID);		
+			if(employee.getEmployee_id() == employeeID && employee.getPassword().equals(password)) {
+				if(employee.getEmp_pos().equals("Employee")) {
+					System.out.print("Im an Employee");
+					ctx.req.getSession();
+					ctx.redirect("/employeeHome.html");
+				}
+				else if(employee.getEmp_pos().equals("Manager")) {
+					System.out.print("Im a Manger");
+					ctx.req.getSession();
+					ctx.redirect("/managerHome.html");
+				}
+			}
+			else
+				System.out.print("wrong something bud");
+		}catch(HibernateException e) {
+			//tx.rollback();
+			e.printStackTrace();
+		}
+		return employee;	
+	}
 	public List<Employee> findAll(){
 		List<Employee> employees = new ArrayList<Employee>();
 		Session s = null;
