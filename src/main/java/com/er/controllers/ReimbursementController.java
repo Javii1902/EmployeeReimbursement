@@ -18,13 +18,13 @@ public class ReimbursementController {
 	public ReimbursementController(Javalin app){
 		this.reimbursementService = new ReimbursementService();
 		app.routes(()-> {
-			path("/all",() -> {
+			path("/reimbursement/all",() -> {
 				get(findAllReimbursements);
 			});
 			path("/Reimbursement/:id",() -> {
 				get(reimbursementByID);
 			});
-			path("/new",() -> {
+			path("/Reimbursement/new",() -> {
 				post(saveReimbursement);
 			});
 		});
@@ -55,4 +55,6 @@ public class ReimbursementController {
 		Reimbursement employee = this.reimbursementService.findByID(id);
 		ctx.json(employee);
 	};
+	
+	
 }

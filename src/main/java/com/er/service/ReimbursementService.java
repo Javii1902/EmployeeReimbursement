@@ -17,9 +17,6 @@ private ReimbursementRepository reimbursementRepository;
 	public void save(Reimbursement reimbursement) {
 		this.reimbursementRepository.save(reimbursement);
 	}
-	public Reimbursement findByName(String name) {
-		return this.reimbursementRepository.findByName(name);
-	}
 	public Reimbursement findByID(int id) {
 		return this.reimbursementRepository.findByID(id);
 	}	

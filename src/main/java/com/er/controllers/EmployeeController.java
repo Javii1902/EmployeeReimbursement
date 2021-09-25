@@ -21,7 +21,7 @@ public class EmployeeController {
 	public EmployeeController(Javalin app){
 		this.employeeService = new EmployeeService();
 		app.routes(()-> {
-			path("/all",() -> {
+			path("/employee/all",() -> {
 				get(findAllEmployees);
 			});
 			path("/name/:name",() -> {
@@ -37,12 +37,8 @@ public class EmployeeController {
 	}
 
 	private Handler findAllEmployees = ctx -> {
-		HttpSession session = ctx.req.getSession(false);
-
-		if(session != null)
-			ctx.json(this.employeeService.findAll());
-		else
-			ctx.res.getWriter().write("you do not have a session.");
+		//HttpSession session = ctx.req.getSession(false);
+		ctx.json(this.employeeService.findAll());
 	};
 	
 	private Handler employeeByName = ctx -> {
@@ -57,7 +53,7 @@ public class EmployeeController {
 				ctx.req.getParameter("username"),
 				ctx.req.getParameter("password"));
 		this.employeeService.save(employee);
-		//ctx.redirect("/home.html");
+		ctx.redirect("/home.html");
 	};
 	
 	private Handler employeeByID = ctx ->{

@@ -50,30 +50,6 @@ public class ReimbursementRepository {
 			session.close();
 		}
 	}
-	public Reimbursement findByName(String name) {
-		Session s = null;
-		Transaction tx = null;
-		Reimbursement reimbursement= null;
-		
-		try {
-			s = HibernateSessionFactory.getSession();
-			tx = s.beginTransaction();
-			
-			CriteriaBuilder cb = s.getCriteriaBuilder();
-			CriteriaQuery<Reimbursement> cq = cb.createQuery(Reimbursement.class);
-			Root<Reimbursement> root = cq.from(Reimbursement.class);
-			cq.select(root).where(cb.equal(root.get("name"), name));
-			Query<Reimbursement> query = s.createQuery(cq);
-			reimbursement = query.getSingleResult();
-			tx.commit();
-		}catch(HibernateException e) {
-			tx.rollback();
-			e.printStackTrace();
-		}finally {
-			s.close();
-		}
-		return reimbursement;
-	}
 	public Reimbursement findByID(int id) {
 		Session s = null;
 		Transaction tx = null;

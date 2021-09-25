@@ -27,18 +27,20 @@ public class Reimbursement {
 	private String status;
 	@Column
 	private String description;
-	private int employee;
-	//@ManyToOne
-	//private Employee employee;
+	@Column
+	private int employee_id;
+	
+//	@ManyToOne
+//	private Employee employee;
 
 	
-	public Reimbursement(int reimbursement_id, double amount, String status, String description, int employee) {
+	public Reimbursement(int reimbursement_id, double amount, String status, String description,int employee_id) {
 		super();
 		this.reimbursement_id = reimbursement_id;
 		this.amount = amount;
 		this.status = status;
 		this.description = description;
-		this.employee = employee;
+		this.employee_id = employee_id;
 	}
 	public int getReimbursement_id() {
 		return reimbursement_id;
@@ -66,7 +68,7 @@ public class Reimbursement {
 	}
 	@Override
 	public int hashCode() {
-		return Objects.hash(amount, description, employee, reimbursement_id, status);
+		return Objects.hash(amount, description, employee_id, reimbursement_id, status);
 	}
 	@Override
 	public boolean equals(Object obj) {
@@ -78,12 +80,12 @@ public class Reimbursement {
 			return false;
 		Reimbursement other = (Reimbursement) obj;
 		return Double.doubleToLongBits(amount) == Double.doubleToLongBits(other.amount)
-				&& Objects.equals(description, other.description) && Objects.equals(employee, other.employee) && reimbursement_id == other.reimbursement_id
+				&& Objects.equals(description, other.description) && Objects.equals(employee_id, other.employee_id) && reimbursement_id == other.reimbursement_id
 				&& Objects.equals(status, other.status);
 	}
 	@Override
 	public String toString() {
-		return "Reimbursement [reimbursement_id=" + reimbursement_id + ", amount=" + amount + ", employee_id=" + ", status=" + status + ", description=" + description + ", employee=" + employee + "]";
+		return "Reimbursement [reimbursement_id=" + reimbursement_id + ", amount=" + amount + ", employee_id=" + ", status=" + status + ", description=" + description + ", employee=" + employee_id + "]";
 	}
 
 	
