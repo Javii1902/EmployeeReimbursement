@@ -20,6 +20,27 @@ import io.javalin.http.Context;
 
 public class EmployeeRepository {
 	
+	public boolean validate(int employeeID,String password) {
+		Transaction tx= null;
+		Employee employee = null;
+		Session s = null;
+		try {
+			s = HibernateSessionFactory.getSession();
+			tx = s.beginTransaction();
+			employee = (Employee) s.createQuery("FROM employees e WHERE e.employee_id "
+					+ "= :employeeID").setParameter("employeeID",employeeID);
+			if(employee != null && employee.getPassword().equals(password)) {
+				return true;
+			}
+			tx.commit();
+		}catch(HibernateException e) {
+			tx.rollback();
+			e.printStackTrace();
+		}
+		
+		return false;
+	}
+	
 	public Employee login(int employeeID, String password) {
 		System.out.println("in the login repo");
 		//Session s = null;

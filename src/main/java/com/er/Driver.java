@@ -22,6 +22,7 @@ public class Driver {
 //			ctx.req.getSession();
 //			ctx.redirect("/home.html");
 //		});
+		
 		app.get("/logout",ctx -> {
 			HttpSession session = ctx.req.getSession(false);
 			if(session!=null)

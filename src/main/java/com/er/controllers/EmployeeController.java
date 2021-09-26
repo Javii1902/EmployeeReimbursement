@@ -39,6 +39,15 @@ public class EmployeeController {
 		});
 	}
 
+//	private Handler login = ctx ->{
+//		int employeeid = Integer.parseInt(ctx.req.getParameter("employeeid"));
+//		String password = ctx.req.getParameter("password");
+//		
+//		if(this.employeeService.validate(employeeid, password) == true) {
+//			System.out.println("true");
+//		};
+//		
+//	};
 	private Handler login = ctx->{
 		
 		int employeeid = Integer.parseInt(ctx.req.getParameter("employeeid"));
@@ -53,7 +62,8 @@ public class EmployeeController {
 				ctx.req.getSession();
 				ctx.redirect("/ManagerHome.html");
 			}
-		}
+		}else
+			ctx.redirect("/login.html");
 	};
 	private Handler findAllEmployees = ctx -> {
 		//HttpSession session = ctx.req.getSession(false);

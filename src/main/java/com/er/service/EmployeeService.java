@@ -26,4 +26,7 @@ public class EmployeeService {
 	public void login(int employeeid,String password) {
 		this.employeeRepository.login(employeeid, password);
 	}
+	public boolean validate(int employeeID,String password) {
+		return this.employeeRepository.validate(employeeID, password);
+	}
 }
