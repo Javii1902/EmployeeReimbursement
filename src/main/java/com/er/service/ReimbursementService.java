@@ -20,4 +20,13 @@ private ReimbursementRepository reimbursementRepository;
 	public Reimbursement findByID(int id) {
 		return this.reimbursementRepository.findByID(id);
 	}	
+	public void approve(int id) {
+		this.reimbursementRepository.approve(id);
+	}
+	public void deny(int id) {
+		this.reimbursementRepository.denied(id);
+	}
+	public List<Reimbursement> reimbursementByEmployee(int id) {
+		return this.reimbursementRepository.reimbursementbyEmployee(id);
+	}
 }

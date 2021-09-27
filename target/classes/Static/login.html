@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html>
-<header>
+
+<head>
     <meta charset="UTF-8">
     <title>login</title>
     <link rel="stylesheet" href="../Static/Styles/style.css">
-</header>
+</head>
 
 <body>
     <!--header -->
@@ -14,16 +15,18 @@
     <!--midlle-->
     <div class="tac">
         <h2 class="">Please log in</h2>
-        <form id="login" method="post" action="http://localhost:7000/login/">
-            <input type="text" placeholder="Employee ID" name="employeeID"> <br><br>
-			<input type="password"placeholder="password" name="password"/> <br><br>
-			<input type="submit" value="SUBMIT"/>
-		</form>
+        <form id="login" method="post" onsubmit="login()" action="http://localhost:7000/login/">
+            <input type="text" placeholder="Employee ID" name="employeeid" id="employee_id" required /> <br><br>
+            <input type="password" placeholder="password" name="password" required /> <br><br>
+            <input type="submit" value="SUBMIT" />
+        </form>
     </div>
     <!--footer-->
     <div>
 
     </div>
-    <script src="./Scripts/login.js"></script>
+    <script src="../Static/Scripts/login.js"></script>
+
 </body>
+
 </html>

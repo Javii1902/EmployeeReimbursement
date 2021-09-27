@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Manager home</title>
+        <link rel="stylesheet" href="Styles/style.css">
+    </head>
+    <body>
+        <!--header-->
+        <div class="tac">
+            <h1>Welcome Manager</h1><br>
+        </div>
+        <!--midlle-->
+        <div id="reimbursementContainer">
+        </div>
+
+        <div id="submission" class="tac">
+            <form id="newRequestForm" method="POST" action="http://localhost:7000/Reimbursement/new">
+                <input type="number" placeHolder="Amount" name="Amount"/> <br> <br>
+                <input type="text" placeholder="Description" name="Description"/> <br> <br>
+                <input type="submit" value="Submit Amount"/>
+            </form>
+        </div>
+        <!--footer-->
+        <div>
+            <h4>at the bottom of this</h4>
+        </div>
+        <script src="Scripts/employeeHome.js"></script>
+    </body>
+</html>

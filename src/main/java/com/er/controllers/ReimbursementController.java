@@ -21,12 +21,22 @@ public class ReimbursementController {
 			path("/reimbursement/all",() -> {
 				get(findAllReimbursements);
 			});
-			path("/Reimbursement/:id",() -> {
+			path("/reimbursement/:id",() -> {
 				get(reimbursementByID);
 			});
-			path("/Reimbursement/new",() -> {
+			path("/reimbursement/employeeid/reimbursements", () ->{
+				get(reimbursementByEmployee);
+			});
+			path("/reimbursement/new",() -> {
 				post(saveReimbursement);
 			});
+			path("/reimbursement/approve", () -> {
+				post(approve);
+			});
+			path("/reimbursement/deny", () -> {
+				post(deny);
+			});
+
 		});
 	}
 
@@ -37,24 +47,56 @@ public class ReimbursementController {
 			ctx.json(this.reimbursementService.findAll());
 		else
 			ctx.res.getWriter().write("you do not have a session.");
+		
 	};
 
 	private Handler saveReimbursement = ctx -> {
-		Reimbursement reimbursement =new Reimbursement(1,
-				Double.parseDouble(ctx.req.getParameter("amount")),
-				ctx.req.getParameter("status"),
-				ctx.req.getParameter("description"),
-				Integer.parseInt(ctx.req.getParameter("employee_id"))
-				);
-		this.reimbursementService.save(reimbursement);
-		//ctx.redirect("/home.html");
+		HttpSession session = ctx.req.getSession(false);
+
+		if(session != null) {
+			Reimbursement reimbursement =new Reimbursement(1,
+					Double.parseDouble(ctx.req.getParameter("amount")),
+					"Pending",
+					ctx.req.getParameter("description"),
+					Integer.parseInt(ctx.req.getParameter("employee_id"))
+					);
+			this.reimbursementService.save(reimbursement);
+		}else
+			ctx.res.getWriter().write("you do not have a session.");
 	};
 	
 	private Handler reimbursementByID = ctx ->{
 		int id = Integer.parseInt(ctx.pathParam("id"));
-		Reimbursement employee = this.reimbursementService.findByID(id);
-		ctx.json(employee);
+		Reimbursement reimbursement = this.reimbursementService.findByID(id);
+		ctx.json(reimbursement);
 	};
+	
+	private Handler approve = ctx->{
+		HttpSession session = ctx.req.getSession(false);
+
+		if(session != null)
+			this.reimbursementService.approve(Integer.parseInt(ctx.req.getParameter("id")));
+		else
+			ctx.res.getWriter().write("you do not have a session.");
+	};
+	private Handler deny = ctx->{
+		HttpSession session = ctx.req.getSession(false);
+
+		if(session != null)
+			this.reimbursementService.deny(Integer.parseInt(ctx.req.getParameter("id")));
+		else
+			ctx.res.getWriter().write("you do not have a session.");
+	};
+	private Handler reimbursementByEmployee = ctx -> {
+		HttpSession s = ctx.req.getSession(false);
+		if(s != null) {
+			int id = Integer.parseInt(ctx.req.getParameter("employeeid"));
+			ctx.json(this.reimbursementService.reimbursementByEmployee(id));
+		}else {
+			ctx.res.getWriter().write("you do not have a session.");
+		}
+	};
+	
 	
 	
 }

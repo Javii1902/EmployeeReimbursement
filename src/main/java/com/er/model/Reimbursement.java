@@ -32,8 +32,9 @@ public class Reimbursement {
 	
 //	@ManyToOne
 //	private Employee employee;
-
-	
+	public Reimbursement() {
+		super();
+	}
 	public Reimbursement(int reimbursement_id, double amount, String status, String description,int employee_id) {
 		super();
 		this.reimbursement_id = reimbursement_id;

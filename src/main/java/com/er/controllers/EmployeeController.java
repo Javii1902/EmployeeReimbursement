@@ -27,10 +27,10 @@ public class EmployeeController {
 			path("/employee/all",() -> {
 				get(findAllEmployees);
 			});
-			path("/name/:name",() -> {
+			path("/employee/name",() -> {
 				get(employeeByName);
 			});
-			path("/employee/:id",() -> {
+			path("/employee/:employee_id",() -> {
 				get(employeeByID);
 			});
 			path("/new",() -> {
@@ -38,18 +38,8 @@ public class EmployeeController {
 			});
 		});
 	}
-
-//	private Handler login = ctx ->{
-//		int employeeid = Integer.parseInt(ctx.req.getParameter("employeeid"));
-//		String password = ctx.req.getParameter("password");
-//		
-//		if(this.employeeService.validate(employeeid, password) == true) {
-//			System.out.println("true");
-//		};
-//		
-//	};
 	private Handler login = ctx->{
-		
+
 		int employeeid = Integer.parseInt(ctx.req.getParameter("employeeid"));
 		String password= ctx.req.getParameter("password");
 		Employee employee = this.employeeService.findByID(employeeid);
@@ -60,18 +50,22 @@ public class EmployeeController {
 				ctx.redirect("/employeeHome.html");
 			}else if (employee.getEmp_pos().equals("Manager")) {
 				ctx.req.getSession();
-				ctx.redirect("/ManagerHome.html");
+				ctx.redirect("/managerHome.html");
 			}
-		}else
+		}else {
+			HttpSession session = ctx.req.getSession(false);
+			if(session!=null)
+				session.invalidate();
 			ctx.redirect("/login.html");
+		}
 	};
 	private Handler findAllEmployees = ctx -> {
 		//HttpSession session = ctx.req.getSession(false);
 		ctx.json(this.employeeService.findAll());
 	};
-	
+
 	private Handler employeeByName = ctx -> {
-		Employee employee = this.employeeService.findByName(ctx.pathParam("name"));
+		Employee employee = this.employeeService.findByName(ctx.req.getParameter("name"));
 		ctx.json(employee);
 	};
 
@@ -84,9 +78,9 @@ public class EmployeeController {
 		this.employeeService.save(employee);
 		ctx.redirect("/home.html");
 	};
-	
+
 	private Handler employeeByID = ctx ->{
-		int id = Integer.parseInt(ctx.pathParam("id"));
+		int id = Integer.parseInt(ctx.pathParam("employee_id"));
 		Employee employee = this.employeeService.findByID(id);
 		ctx.json(employee);
 	};
