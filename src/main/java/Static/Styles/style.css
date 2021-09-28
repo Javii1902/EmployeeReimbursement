@@ -5,3 +5,26 @@
 	font-size: 100px;
 	font-family: fantasy;
 }
+.center{
+	margin: auto;
+	border: 3px solid green;
+
+}
+table{
+	margin:auto;
+}
+tr,th{
+	margin:auto;
+	padding-top: 10px;
+  	padding-bottom: 10px;
+  	padding-left: 15px;
+  	padding-right: 10px;
+}
+footer {
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+	text-align: center;
+	z-index:0;
+ }

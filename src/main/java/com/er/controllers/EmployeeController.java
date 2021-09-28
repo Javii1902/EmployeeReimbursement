@@ -43,13 +43,18 @@ public class EmployeeController {
 		int employeeid = Integer.parseInt(ctx.req.getParameter("employeeid"));
 		String password= ctx.req.getParameter("password");
 		Employee employee = this.employeeService.findByID(employeeid);
-
+		
 		if(employee.getEmployee_id() == employeeid && employee.getPassword().equals(password)) {
 			if(employee.getEmp_pos().equals("Employee")) {
 				ctx.req.getSession();
+				HttpSession s = ctx.req.getSession(false);
+				s.setAttribute("employee_id", employee.getEmployee_id());
 				ctx.redirect("/employeeHome.html");
+				System.out.println(s.getAttribute("employee_id"));
 			}else if (employee.getEmp_pos().equals("Manager")) {
 				ctx.req.getSession();
+				HttpSession s = ctx.req.getSession(false);
+				s.setAttribute("employee_id", employee.getEmployee_id());
 				ctx.redirect("/managerHome.html");
 			}
 		}else {
@@ -76,7 +81,6 @@ public class EmployeeController {
 				ctx.req.getParameter("username"),
 				ctx.req.getParameter("password"));
 		this.employeeService.save(employee);
-		ctx.redirect("/home.html");
 	};
 
 	private Handler employeeByID = ctx ->{

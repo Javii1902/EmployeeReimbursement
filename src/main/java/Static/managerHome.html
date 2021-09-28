@@ -10,20 +10,27 @@
             <h1>Welcome Manager</h1><br>
         </div>
         <!--midlle-->
-        <div id="reimbursementContainer">
-        </div>
 
-        <div id="submission" class="tac">
-            <form id="newRequestForm" method="POST" action="http://localhost:7000/Reimbursement/new">
-                <input type="number" placeHolder="Amount" name="Amount"/> <br> <br>
-                <input type="text" placeholder="Description" name="Description"/> <br> <br>
-                <input type="submit" value="Submit Amount"/>
-            </form>
+
+        <div id="reimbursementContainer">
+            <table id="reimbursementsTable"></table>  
         </div>
-        <!--footer-->
+        <div id="statsContainer">
+            <table id="statsTable"></table>
+        </div>
         <div>
-            <h4>at the bottom of this</h4>
-        </div>
-        <script src="Scripts/employeeHome.js"></script>
+            <form id="AppDen" method="POST" class="tac">
+                <input type="number" placeHolder="Reimbursement ID" name="id"/> <br> <br>
+                <button type="submit" formaction="http://localhost:7000/reimbursement/approve">Approve</button>
+                <button type="submit" formaction="http://localhost:7000/reimbursement/deny">Deny</button>
+            </form>
+            </div>
+
+
+        <!--footer-->
+        <footer>
+            <h4>At the bottom of this</h4>
+        </footer>
+        <script src="Scripts/managerHome.js"></script>
     </body>
 </html>

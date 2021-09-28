@@ -47,56 +47,61 @@ public class ReimbursementController {
 			ctx.json(this.reimbursementService.findAll());
 		else
 			ctx.res.getWriter().write("you do not have a session.");
-		
+
 	};
 
 	private Handler saveReimbursement = ctx -> {
 		HttpSession session = ctx.req.getSession(false);
-
+		int employeeID = (int) session.getAttribute("employee_id");
 		if(session != null) {
 			Reimbursement reimbursement =new Reimbursement(1,
 					Double.parseDouble(ctx.req.getParameter("amount")),
 					"Pending",
 					ctx.req.getParameter("description"),
-					Integer.parseInt(ctx.req.getParameter("employee_id"))
+					employeeID
 					);
 			this.reimbursementService.save(reimbursement);
-		}else
+			ctx.redirect("/employeeHome.html");
+		}else {
 			ctx.res.getWriter().write("you do not have a session.");
+		}
 	};
-	
+
 	private Handler reimbursementByID = ctx ->{
 		int id = Integer.parseInt(ctx.pathParam("id"));
 		Reimbursement reimbursement = this.reimbursementService.findByID(id);
 		ctx.json(reimbursement);
 	};
-	
+
 	private Handler approve = ctx->{
 		HttpSession session = ctx.req.getSession(false);
 
-		if(session != null)
+		if(session != null) {
 			this.reimbursementService.approve(Integer.parseInt(ctx.req.getParameter("id")));
-		else
+			ctx.redirect("/managerHome.html");
+		}else
 			ctx.res.getWriter().write("you do not have a session.");
 	};
 	private Handler deny = ctx->{
 		HttpSession session = ctx.req.getSession(false);
 
-		if(session != null)
+		if(session != null) {
 			this.reimbursementService.deny(Integer.parseInt(ctx.req.getParameter("id")));
-		else
+			ctx.redirect("/managerHome.html");
+		}else
 			ctx.res.getWriter().write("you do not have a session.");
 	};
 	private Handler reimbursementByEmployee = ctx -> {
 		HttpSession s = ctx.req.getSession(false);
 		if(s != null) {
-			int id = Integer.parseInt(ctx.req.getParameter("employeeid"));
+			int id = (int) s.getAttribute("employee_id");
+			//int id = Integer.parseInt(ctx.req.getParameter("employeeid"));
 			ctx.json(this.reimbursementService.reimbursementByEmployee(id));
 		}else {
 			ctx.res.getWriter().write("you do not have a session.");
 		}
 	};
-	
-	
-	
+
+
+
 }

@@ -10,15 +10,16 @@
             <h1>Welcome Employee</h1><br>
         </div>
         <!--midlle-->
-        <div id="reimbursementContainer">
-            <h1>Entering something here </h1>
+        <div id="employeeReimbursements" class="center" >
+            <table id="reimbursementsTable" >
+            </table>
         </div>
 
-        <div id="submission" class="tac">
-            <form id="newRequestForm" method="POST" action="http://localhost:7000/Reimbursement/new">
+        <div id="submission">
+            <h3 class="tac">Enter new reimbursement request</h3>
+            <form id="newRequestForm" method="POST" action="http://localhost:7000/reimbursement/new" class="tac">
                 <input type="number" placeHolder="Amount" name="amount"/> <br> <br>
                 <input type="text" placeholder="Description" name="description"/> <br> <br>
-                <input type="hidden" placeholder="Name" required name = "employee_id" value="" id="userinput"/>
                 <input type="submit" value="Submit Amount"/>
             </form>
         </div>
